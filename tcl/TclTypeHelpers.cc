@@ -40,7 +40,7 @@ tclListSetConstChar(Tcl_Obj *const source,
   if (Tcl_ListObjGetElements(interp, source, &argc, &argv) == TCL_OK) {
     StringSet *set = new StringSet;
     for (int i = 0; i < argc; i++) {
-      int length;
+      Tcl_Size length;
       const char *str = Tcl_GetStringFromObj(argv[i], &length);
       set->insert(str);
     }
@@ -60,7 +60,7 @@ tclListSeqConstChar(Tcl_Obj *const source,
   if (Tcl_ListObjGetElements(interp, source, &argc, &argv) == TCL_OK) {
     StringSeq *seq = new StringSeq;
     for (int i = 0; i < argc; i++) {
-      int length;
+      Tcl_Size length;
       const char *str = Tcl_GetStringFromObj(argv[i], &length);
       seq->push_back(str);
     }
@@ -80,7 +80,7 @@ tclListSetStdString(Tcl_Obj *const source,
   if (Tcl_ListObjGetElements(interp, source, &argc, &argv) == TCL_OK) {
     StdStringSet *set = new StdStringSet;
     for (int i = 0; i < argc; i++) {
-      int length;
+      Tcl_Size length;
       const char *str = Tcl_GetStringFromObj(argv[i], &length);
       set->insert(str);
     }
@@ -186,11 +186,11 @@ arcDcalcArgTcl(Tcl_Obj *obj,
 {
   Sta *sta = Sta::sta();
   sta->ensureGraph();
-  int list_argc;
+  Tcl_Size list_argc;
   Tcl_Obj **list_argv;
   if (Tcl_ListObjGetElements(interp, obj, &list_argc, &list_argv) == TCL_OK) {
     const char *input_delay = "0.0";
-    int length;
+    Tcl_Size length;
     if (list_argc == 6)
       input_delay = Tcl_GetStringFromObj(list_argv[5], &length);
     if (list_argc == 5 || list_argc == 6) {

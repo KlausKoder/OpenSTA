@@ -437,7 +437,7 @@ using namespace sta;
 }
 
 %typemap(in) Transition* {
-  int length;
+  Tcl_Size length;
   const char *arg = Tcl_GetStringFromObj($input, &length);
   Transition *tr = Transition::find(arg);
   if (tr == nullptr) {
@@ -457,7 +457,7 @@ using namespace sta;
 }
 
 %typemap(in) RiseFall* {
-  int length;
+  Tcl_Size length;
   const char *arg = Tcl_GetStringFromObj($input, &length);
   const RiseFall *rf = RiseFall::find(arg);
   if (rf == nullptr) {
@@ -477,7 +477,7 @@ using namespace sta;
 }
 
 %typemap(in) RiseFallBoth* {
-  int length;
+  Tcl_Size length;
   const char *arg = Tcl_GetStringFromObj($input, &length);
   const RiseFallBoth *rf = RiseFallBoth::find(arg);
   if (rf == nullptr) {
@@ -497,7 +497,7 @@ using namespace sta;
 }
 
 %typemap(in) PortDirection* {
-  int length;
+  Tcl_Size length;
   const char *arg = Tcl_GetStringFromObj($input, &length);
   PortDirection *dir = PortDirection::find(arg);
   if (dir == nullptr) {
@@ -509,7 +509,7 @@ using namespace sta;
  }
 
 %typemap(in) TimingRole* {
-  int length;
+  Tcl_Size length;
   const char *arg = Tcl_GetStringFromObj($input, &length);
   const TimingRole *role = TimingRole::find(arg);
   if (role)
@@ -526,7 +526,7 @@ using namespace sta;
 }
 
 %typemap(in) LogicValue {
-  int length;
+  Tcl_Size length;
   const char *arg = Tcl_GetStringFromObj($input, &length);
   if (stringEq(arg, "0") || stringEq(arg, "zero"))
     $1 = LogicValue::zero;
@@ -545,7 +545,7 @@ using namespace sta;
 }
 
 %typemap(in) AnalysisType {
-  int length;
+  Tcl_Size length;
   const char *arg = Tcl_GetStringFromObj($input, &length);
   if (stringEqual(arg, "single"))
     $1 = AnalysisType::single;
@@ -849,7 +849,7 @@ using namespace sta;
 }
 
 %typemap(in) MinMax* {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   // Swig is retarded and drops const on args.
   MinMax *min_max = const_cast<MinMax*>(MinMax::find(arg));
@@ -870,7 +870,7 @@ using namespace sta;
 }
 
 %typemap(in) MinMaxAll* {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   // Swig is retarded and drops const on args.
   MinMaxAll *min_max = const_cast<MinMaxAll*>(MinMaxAll::find(arg));
@@ -883,7 +883,7 @@ using namespace sta;
 }
 
 %typemap(in) MinMaxAllNull* {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   if (stringEqual(arg, "NULL"))
     $1 = nullptr;
@@ -905,7 +905,7 @@ using namespace sta;
 
 // SetupHold is typedef'd to MinMax.
 %typemap(in) const SetupHold* {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   // Swig is retarded and drops const on args.
   if (stringEqual(arg, "hold")
@@ -922,7 +922,7 @@ using namespace sta;
 
 // SetupHoldAll is typedef'd to MinMaxAll.
 %typemap(in) const SetupHoldAll* {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   // Swig is retarded and drops const on args.
   if (stringEqual(arg, "hold")
@@ -942,7 +942,7 @@ using namespace sta;
 
 // EarlyLate is typedef'd to MinMax.
 %typemap(in) const EarlyLate* {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   // Swig is retarded and drops const on args.
   EarlyLate *early_late = const_cast<EarlyLate*>(EarlyLate::find(arg));
@@ -956,7 +956,7 @@ using namespace sta;
 
 // EarlyLateAll is typedef'd to MinMaxAll.
 %typemap(in) const EarlyLateAll* {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   // Swig is retarded and drops const on args.
   EarlyLateAll *early_late = const_cast<EarlyLateAll*>(EarlyLateAll::find(arg));
@@ -969,7 +969,7 @@ using namespace sta;
 }
 
 %typemap(in) TimingDerateType {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   if (stringEq(arg, "net_delay"))
     $1 = TimingDerateType::net_delay;
@@ -984,7 +984,7 @@ using namespace sta;
 }
 
 %typemap(in) TimingDerateCellType {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   if (stringEq(arg, "cell_delay"))
     $1 = TimingDerateCellType::cell_delay;
@@ -997,7 +997,7 @@ using namespace sta;
 }
 
 %typemap(in) PathClkOrData {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   if (stringEq(arg, "clk"))
     $1 = PathClkOrData::clk;
@@ -1010,7 +1010,7 @@ using namespace sta;
 }
 
 %typemap(in) ReportSortBy {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   if (stringEq(arg, "group"))
     $1 = sort_by_group;
@@ -1023,7 +1023,7 @@ using namespace sta;
 }
 
 %typemap(in) ReportPathFormat {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   if (stringEq(arg, "full"))
     $1 = ReportPathFormat::full;
@@ -1398,7 +1398,7 @@ using namespace sta;
 }
 
 %typemap(in) CircuitSim {
-  int length;
+  Tcl_Size length;
   char *arg = Tcl_GetStringFromObj($input, &length);
   if (stringEq(arg, "hspice"))
     $1 = CircuitSim::hspice;
